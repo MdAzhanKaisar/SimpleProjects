@@ -1,10 +1,6 @@
 #pragma once
-#define _CRT_SECURE_NO_WARNINGS
-#pragma warning(disable : 4267)
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
+//#define _CRT_SECURE_NO_WARNINGS
+//#pragma warning(disable : 4267)
 
 //uses a new Struct 'str'
 typedef struct str {

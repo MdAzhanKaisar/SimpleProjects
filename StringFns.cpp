@@ -1,4 +1,7 @@
 #include "StringFns.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 //makes the struct for you.
 str* strMaker(const char* s, int l ) {
