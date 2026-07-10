@@ -9,8 +9,15 @@ int main() {
 	printf("Begin...\n");
 
 	//test code
-	List* L1 = listMaker(5);
+	List* L1 = listMaker();
 	printf("List created with length: %d\n", L1->len);
+	int i = 25;
+	listAppend(L1, (void*)(&i), INT);
+	printf("List length after appending an int: %d\n", L1->len);
+	printf("List data: %d\n", *((int*)L1->data));
+	printf("List type: %d\n", L1->type[0]);
+	printf("List data size: %d\n", L1->dataSize);
+	printf("List type size: %d\n", L1->typeSize);
 
 	printf("\nEnd...");
 	return 0;
