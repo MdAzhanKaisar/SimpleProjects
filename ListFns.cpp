@@ -63,11 +63,42 @@ void listAppend(List* l, void* data, DataType type) {
 	l->len++;
 }
 
+
+// Function to get data ptr at a given index in the list.
 void* listGet(List* l = NULL, int index = 0) {
 	if (index == 0) { return l->data; }
 	int offset = findDataOffset(l, index);
 	if (offset == -1) { return NULL; }
 	return (void*) ((char*)l->data + offset - l->type[index]);
 }
+
+
+
+// Functions to append any const value to the list
+void betterListAppend(List* l, int data) { listAppend(l, (void*)(&data), INT); }
+void betterListAppend(List* l, float data) { listAppend(l, (void*)(&data), FLOAT); }
+void betterListAppend(List* l, double data) { listAppend(l, (void*)(&data), DOUBLE); }
+void betterListAppend(List* l, char data) { listAppend(l, (void*)(&data), CHAR); }
+void betterListAppend(List* l, bool data) { listAppend(l, (void*)(&data), BOOL); }
+void betterListAppend(List* l, char* data) { listAppend(l, (void*)(&data), STRING); }
+void betterListAppend(List* l, void* data) { listAppend(l, (void*)(&data), POINTER); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -26,9 +26,10 @@ void listAppend(List* l, void* data, DataType type);
 int findDataOffset(List* l, int index);
 void* listGet(List* l, int index);
 
-//helpful in input
-void* getPtr(int a);
-void* getPtr(char a);
-void* getPtr(float a);
-void* getPtr(double a);
-void* getPtr(bool a);
+void betterListAppend(List* l, int data);
+void betterListAppend(List* l, float data);
+void betterListAppend(List* l, double data);
+void betterListAppend(List* l, char data);
+void betterListAppend(List* l, bool data);
+void betterListAppend(List* l, char* data);
+void betterListAppend(List* l, void* data);

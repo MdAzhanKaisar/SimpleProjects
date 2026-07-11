@@ -24,23 +24,19 @@ int main() {
 	printf("\n\n\n            Append \n\n\n");
 
 	char s = 'A';
-	listAppend(L1, (void*)(&s), CHAR);
-	listAppend(L1, (void*)(&s), CHAR);
-	listAppend(L1, (void*)(&s), CHAR);
-	listAppend(L1, (void*)(&s), CHAR);
-	listAppend(L1, (void*)(&s), CHAR);
+	betterListAppend(L1, 'a');
 	printf("List length after appending a char: %d\n", L1->len);
-	printf("List data: %c\n", *( (char*) listGet(L1,5) ) );
-	printf("List type: %d\n", L1->type[5]);
+	printf("List data: %c\n", *( (char*) listGet(L1,1) ) );
+	printf("List type: %d\n", L1->type[1]);
 	printf("List data size: %d\n", L1->dataSize);
 	printf("List type size: %d\n", L1->typeSize);
 
 	printf("\n\n\n            Append \n\n\n");
 
-	listAppend(L1, (void*)(&i), INT);
+	betterListAppend(L1,100);
 	printf("List length after appending an int: %d\n", L1->len);
-	printf("List data: %d\n", *((int*)listGet(L1, 6)));
-	printf("List type: %d\n", L1->type[6]);
+	printf("List data: %d\n", *((int*)listGet(L1, 2)));
+	printf("List type: %d\n", L1->type[2]);
 	printf("List data size: %d\n", L1->dataSize);
 	printf("List type size: %d\n", L1->typeSize);
 
