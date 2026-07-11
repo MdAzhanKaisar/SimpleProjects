@@ -33,3 +33,6 @@ void betterListAppend(List* l, char data);
 void betterListAppend(List* l, bool data);
 void betterListAppend(List* l, char* data);
 void betterListAppend(List* l, void* data);
+
+void listFree(List* l);
+void listRemove(List* l, int index);
