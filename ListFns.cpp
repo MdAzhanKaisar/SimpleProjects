@@ -24,7 +24,15 @@ List* listMaker() {
 	return newList;
 }
 
-
+//to get the data pointer for a given index in the list. It returns the offset in bytes from the start of the data array to the data at the specified index.
+int findDataOffset(List* l, int index) {
+	if (l == NULL || index < 0 || index >= l->len || l->data==NULL || l->type==NULL) { return -1; }
+	int dataSize = 0;
+	for (int i = 0; i <= index; i++) {
+		dataSize += ((l->type)[i]);
+	}
+	return dataSize;
+}
 
 
 
@@ -38,10 +46,8 @@ void listAppend(List* l, void* data, DataType type) {
 	}
 	if (l->type == NULL) { return; }
 	//finding length in bytes.
-	int dataSize = 0;
-	for (int i = 0; i < l->len; i++) {
-		dataSize += ((l->type)[i]);
-	}
+	int dataSize = (l->len == 0) ? 0 : findDataOffset(l, l->len - 1);
+
 	//checking if the data array needs to be resized.
 	if ((l->dataSize - dataSize) <= type) {
 		l->data = realloc(l->data, (l->dataSize + 10) * sizeof(void*));
@@ -56,4 +62,12 @@ void listAppend(List* l, void* data, DataType type) {
 	l->type[l->len] = type;
 	l->len++;
 }
+
+void* listGet(List* l = NULL, int index = 0) {
+	if (index == 0) { return l->data; }
+	int offset = findDataOffset(l, index);
+	if (offset == -1) { return NULL; }
+	return (void*) ((char*)l->data + offset - l->type[index]);
+}
+
 
