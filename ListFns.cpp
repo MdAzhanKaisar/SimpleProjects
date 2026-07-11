@@ -12,7 +12,7 @@ List* listMaker() {
 	List* newList = (List*)calloc(1,sizeof(List));
 	if (newList == NULL) { return NULL; }
 
-	newList->data = calloc(10,sizeof(void*));
+	newList->data = calloc(10,sizeof(char)); 
 	if (newList->data == NULL) { free(newList); return NULL; }
 
 	newList->type = (DataType*)calloc(10, sizeof(DataType));
@@ -50,7 +50,7 @@ void listAppend(List* l, void* data, DataType type) {
 
 	//checking if the data array needs to be resized.
 	if ((l->dataSize - dataSize) <= type) {
-		l->data = realloc(l->data, (l->dataSize + 10) * sizeof(void*));
+		l->data = realloc(l->data, (l->dataSize + 10) * sizeof(char));
 		l->dataSize += 10;
 	}
 	if (l->data == NULL) { return; }
