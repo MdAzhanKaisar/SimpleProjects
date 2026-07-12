@@ -66,7 +66,7 @@ void listAppend(List* l, void* data, DataType type) {
 
 
 // Function to get data ptr at a given index in the list.
-void* listGet(List* l = NULL, int index = 0) {
+void* listGet(List* l, int index) {
 	if (index == 0) { return l->data; }
 	int offset = findDataOffset(l, index);
 	if (offset == -1) { return NULL; }
@@ -123,7 +123,7 @@ void listRemove(List* l, int index) {
 
 
 // Function to insert data in the list at a specefic index
-void listInsert(List* l, void* data, DataType type, int index) {
+void listInsert(List* l , void* data, DataType type, int index) {
 	if (l == NULL || data == NULL || type == 0 || index < 0 || index >= l->len) { return; }
 	// Getting offset
 	int offset = findDataOffset(l, index);
@@ -167,7 +167,33 @@ void betterListInsert(List* l, void* data, int index)     { listInsert(l, (void*
 
 
 
+// Function to print the list
+void listPrint(List* l, int from_index, int no_of_elements) {
+	if (l == NULL || from_index < 0 || from_index >= l->len || no_of_elements < -1) { return; }
+	// Correcting no_of_elements
+	if (no_of_elements == -1) { no_of_elements = l->len; }
+	if (no_of_elements > l->len - from_index) { no_of_elements = l->len - from_index; }
+	// Variables for storing data and type temporarily
+	void* data;
+	DataType type;
+	// Print loop
+	printf("[ ");
+	for (int i = from_index; no_of_elements > 0;i++) {
+		data = listGet(l, i);
+		type = l->type[i];
+		//Could not use switch-case as INT and FLOAT are both associated with 4 which is the size of respective datatypes and so on...
+		if (type == INT)     { printf("%i, ", *((int*)data)); }
+		else if (type == FLOAT)   { printf("%f, ", *((float*)data)); }
+		else if (type == DOUBLE)  { printf("%lf, ", *((double*)data)); }
+		else if (type == CHAR)    { printf("%c, ", *((char*)data)); }
+		else if (type == BOOL)    { printf("%s, ", (*((bool*)data) ? "true" : "false")); }
+		else if (type == STRING)  { printf("%s, ", *((char**)data)); }
+		else if (type == POINTER) { printf("%p, ", *((void**)data)); }
+		no_of_elements--;
+	}
+	printf("]");
 
+}
 
 
 

@@ -12,6 +12,7 @@ typedef enum DataType {
 	POINTER = sizeof(void*)
 } DataType;
 
+
 typedef struct List {
 	void* data;
 	DataType* type;
@@ -46,6 +47,6 @@ void betterListInsert(List* l, bool data, int index);
 void betterListInsert(List* l, char* data, int index);
 void betterListInsert(List* l, void* data, int index);
 
-
+void listPrint(List* l, int from_index = 0, int no_of_elements = -1);
 
 
