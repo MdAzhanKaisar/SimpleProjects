@@ -33,7 +33,8 @@ int main() {
 
 	printf("\n\n\n            Append \n\n\n");
 
-	betterListAppend(L1,100);
+	betterListAppend(L1, 100);
+
 	printf("List length after appending an int: %d\n", L1->len);
 	printf("List data: %d\n", *((int*)listGet(L1, 2)));
 	printf("List type: %d\n", L1->type[2]);
@@ -42,7 +43,17 @@ int main() {
 
 
 
+	printf("\n\n\n            Append \n\n\n");
+	betterListAppend(L1, 'B');
+	printf("List length after appending an char: %d\n", L1->len);
+	printf("List data: %c\n", *((char*)listGet(L1, 3)));
+	printf("List type: %d\n", L1->type[3]);
+	printf("List data size: %d\n", L1->dataSize);
+	printf("List type size: %d\n", L1->typeSize);
 
+	i = 50;
+	printf("\n\n\n            Insert \n\n\n");
+	
 
 
 

@@ -24,7 +24,7 @@ List* listMaker() {
 
 
 
-//to get the data pointer for a given index in the list. It returns the offset in bytes from the start of the data array to the data at the specified index.
+//to get the data offset for a given index in the list. It returns the offset in bytes from the start of the data array to the data at the specified index.
 int findDataOffset(List* l, int index) {
 	if (l == NULL || index < 0 || index >= l->len || l->data==NULL || l->type==NULL) { return -1; }
 	int dataSize = 0;
@@ -110,15 +110,65 @@ void listRemove(List* l, int index) {
 	if (l->data == NULL) { listFree(l); return; }
 	//removing by shifting the data and the type
 	for (int i = offset - l->type[index]; i < findDataOffset(l, l->len - 1) ; i++) {
-		((char*)l->data)[offset + i] = ((char*)l->data)[offset + l->type[index] + i];
-	}
-	for (int i = index; i < l->len - 2; i++) {
-		l->type[i] = l->type[i + 1];
-	}
+		((char*)l->data)[i] = ((char*)l->data)[l->type[index] + i];
+	} 
+	for (int i = index; i < l->len - 1; i++) { 
+		(l->type[i]) = (l->type[i + 1]);
+	} 
 	//updating list length
 	l->len--;
 
 }
+
+
+
+// Function to insert data in the list at a specefic index
+void listInsert(List* l, void* data, DataType type, int index) {
+	if (l == NULL || data == NULL || type == 0 || index < 0 || index >= l->len) { return; }
+	// Getting offset
+	int offset = findDataOffset(l, index);
+	if (offset == -1) { return; }
+	// Check and realloc to icrease size of data array and type array if needed
+	if (l->dataSize - offset <= type) {
+		l->data = realloc(l->data, (l->dataSize + 10) * sizeof(char));
+		l->dataSize += 10;
+	}
+	if (l->len == l->typeSize) {
+		l->type = (DataType*)realloc(l->type, (l->typeSize + 5) * sizeof(DataType));
+		l->typeSize += 5;
+	}
+	// shifting data towards right to create space
+	for (int i = findDataOffset(l, l->len - 1) + type - 1 ; i > offset - l->type[index] - 1; i--) {
+		((char*)l->data)[i + type] = ((char*)l->data)[i];
+	}
+	for (int i = l->len; i > index - 1; i--) {
+		l->type[i + 1] = l->type[i];
+	}
+	//Inserting data
+	for (int i = 0;i < type;i++) {
+		((char*)l->data)[offset - type + i] = ((char*)data)[i];
+	}
+	l->type[index] = type;
+	// Updating length
+	l->len++;
+
+}
+
+
+
+// Functions to insert any const value to the list
+void betterListInsert(List* l, int data, int index)       { listInsert(l, (void*)(&data), INT, index); }
+void betterListInsert(List* l, float data, int index)     { listInsert(l, (void*)(&data), FLOAT, index); }
+void betterListInsert(List* l, double data, int index)    { listInsert(l, (void*)(&data), DOUBLE, index); }
+void betterListInsert(List* l, char data, int index)      { listInsert(l, (void*)(&data), CHAR, index); }
+void betterListInsert(List* l, bool data, int index)      { listInsert(l, (void*)(&data), BOOL, index); }
+void betterListInsert(List* l, char* data, int index)     { listInsert(l, (void*)(&data), STRING, index); }
+void betterListInsert(List* l, void* data, int index)     { listInsert(l, (void*)(&data), POINTER, index); }
+
+
+
+
+
 
 
 

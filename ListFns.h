@@ -36,3 +36,16 @@ void betterListAppend(List* l, void* data);
 
 void listFree(List* l);
 void listRemove(List* l, int index);
+void listInsert(List* l, void* data, DataType type, int index);
+
+void betterListInsert(List* l, int data, int index);
+void betterListInsert(List* l, float data, int index);
+void betterListInsert(List* l, double data, int index);
+void betterListInsert(List* l, char data, int index);
+void betterListInsert(List* l, bool data, int index);
+void betterListInsert(List* l, char* data, int index);
+void betterListInsert(List* l, void* data, int index);
+
+
+
+
