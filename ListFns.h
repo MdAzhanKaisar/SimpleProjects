@@ -70,3 +70,4 @@ int betterListFind(List* l, bool data);
 int betterListFind(List* l, char* data);
 int betterListFind(List* l, void* data);
 
+List* listAdder(List* L1, List* L2, int from_index_L1 = 0, int from_index_L2 = 0, int no_of_elements_L1 = -1, int no_of_elements_L2 = -1);

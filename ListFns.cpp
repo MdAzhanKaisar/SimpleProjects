@@ -287,7 +287,37 @@ int betterListFind(List* l, void* data)     { return listFind(l, (void*)(&data),
 
 
 
-
+// Function to add two lists
+List* listAdder(List* L1, List* L2, int from_index_L1, int from_index_L2, int no_of_elements_L1, int no_of_elements_L2) {
+	if (L1 == NULL || L2 == NULL || from_index_L1 < 0 || from_index_L1 > L1->len ||
+		from_index_L2 < 0 || from_index_L2 > L2->len || no_of_elements_L1 < -1 || no_of_elements_L2 < -1) {
+		return NULL;
+	}
+	// Correcting no_of_elements
+	if (no_of_elements_L1 == -1) { no_of_elements_L1 = L1->len; }
+	if (no_of_elements_L1 > L1->len - from_index_L1) { no_of_elements_L1 = L1->len - from_index_L1; }
+	if (no_of_elements_L2 == -1) { no_of_elements_L2 = L2->len; }
+	if (no_of_elements_L2 > L2->len - from_index_L2) { no_of_elements_L2 = L2->len - from_index_L2; }
+	// Necessary variables
+	List* L = listMaker();
+	if (L == NULL) { return NULL; }
+	void* data;
+	DataTag tag;
+	// Append Loops
+	for (int i = from_index_L1; no_of_elements_L1 > 0;i++) {
+		data = listGet(L1, i);
+		tag = L1->tag[i];
+		listAppend(L, data, tag);
+		no_of_elements_L1--;
+	}
+	for (int i = from_index_L2; no_of_elements_L2 > 0;i++) {
+		data = listGet(L2, i);
+		tag = L1->tag[i];
+		listAppend(L, data, tag);
+		no_of_elements_L2--;
+	}
+	return L;
+}
 
 
 
