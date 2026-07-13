@@ -60,5 +60,13 @@ void betterListInsert(List* l, char* data, int index = 0);
 void betterListInsert(List* l, void* data, int index = 0);
 
 void listPrint(List* l, int from_index = 0, int no_of_elements = -1);
+int listFind(List* l, void* data, DataTag tag);
 
+int betterListFind(List* l, int data);
+int betterListFind(List* l, float data);
+int betterListFind(List* l, double data);
+int betterListFind(List* l, char data);
+int betterListFind(List* l, bool data);
+int betterListFind(List* l, char* data);
+int betterListFind(List* l, void* data);
 

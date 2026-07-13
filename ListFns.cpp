@@ -49,8 +49,8 @@ DataType getType(DataTag tag) {
 	case BOOL:   return BOOLING; 
 	case STR:    return STRING; 
 	case PTR:    return POINTER;
-	default: return INTEGER;
 	}
+	return INTEGER;
 }
 
 
@@ -251,12 +251,39 @@ void listPrint(List* l, int from_index, int no_of_elements) {
 
 
 
+// Function to find a value in the list and return its index.
+int listFind(List* l, void* data, DataTag tag) {
+	if (l == NULL || data == NULL) { return -2; }
+	//Temporary variables to store data*, type and check if data matches
+	void* temp;
+	DataType type;
+	int check = 0;
+	//Checking loop
+	for (int i = 0;i < l->len;i++) {
+		if (l->tag[i] == tag) {
+			temp = listGet(l, i);
+			type = getType(tag);
+			// Loop checks each byte
+			for (int j = 0; j < type;j++) {
+				if (((char*)temp)[j] == ((char*)data)[j]) { check++; }
+			}
+			if (check == type) { return i; }
+			else { check = 0; }
+		}
+	}
+	return -1;
+}
 
 
 
-
-
-
+// Functions to find any const value from the list and return its index
+int betterListFind(List* l, int data)       { return listFind(l, (void*)(&data), INT); }
+int betterListFind(List* l, float data)     { return listFind(l, (void*)(&data), FLOAT); }
+int betterListFind(List* l, double data)    { return listFind(l, (void*)(&data), DOUBLE); }
+int betterListFind(List* l, char data)      { return listFind(l, (void*)(&data), CHAR); }
+int betterListFind(List* l, bool data)      { return listFind(l, (void*)(&data), BOOL); }
+int betterListFind(List* l, char* data)     { return listFind(l, (void*)(&data), STR); }
+int betterListFind(List* l, void* data)     { return listFind(l, (void*)(&data), PTR); }
 
 
 
