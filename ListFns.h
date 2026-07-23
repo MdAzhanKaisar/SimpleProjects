@@ -1,5 +1,5 @@
 #pragma once
-
+#include <stdbool.h>
 //List of values of different data types
 
 typedef enum DataType {
@@ -30,6 +30,7 @@ typedef struct List {
 	int dataSize;
 	int typeSize;
 	int tagSize;
+	bool isMarked;
 } List;
 
 //FUNCTIONS
