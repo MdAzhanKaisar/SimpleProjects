@@ -1,4 +1,4 @@
-#include "ListFns.h"
+#include "MarkNSweepGC.h"
 #include <stdio.h>
 #include <stdlib.h>
 
