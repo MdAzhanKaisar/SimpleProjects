@@ -53,7 +53,27 @@ void* pop(Stack* stk) {
 
 
 
-
+//Remove all the NULL elements from a stack
+bool stackFreeNulls(Stack* stk) {
+	if (stk == NULL or stk->count == 0) { return false; }
+	//temporary alloc
+	void** data = (void**)calloc(stk->count,sizeof(void*));
+	if (data == NULL) { return false; }
+	int c = 0;
+	//storing all values excluding NULLs
+	for (int i = 0; i < stk->count;i++) {
+		if (stk->data[i] != NULL) {
+			data[c++] = stk->data[i];
+		}
+	}
+	//restoring all stored values
+	for (int i = 0;i < c;i++) {
+		stk->data[i] = data[i];
+	}
+	stk->count = c;
+	free(data);
+	return true;
+}
 
 
 
