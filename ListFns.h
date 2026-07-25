@@ -9,7 +9,8 @@ typedef enum DataType {
 	CHARACTER=sizeof(char),
 	BOOLING = sizeof(bool),
 	STRING=sizeof(char*),
-	POINTER = sizeof(void*)
+	POINTER = sizeof(void*),
+	LIST=sizeof(List*),
 } DataType;
 
 typedef enum DataTag {
@@ -19,7 +20,8 @@ typedef enum DataTag {
 	CHAR ,
 	BOOL ,
 	STR ,
-	PTR 
+	PTR ,
+	LST ,
 }DataTag;
 
 typedef struct List {
@@ -47,6 +49,7 @@ void betterListAppend(List* l, char data);
 void betterListAppend(List* l, bool data);
 void betterListAppend(List* l, char* data);
 void betterListAppend(List* l, void* data);
+void betterListAppend(List* l, List* data);
 
 void listFree(List* l);
 void listRemove(List* l, int index = 0);
@@ -59,6 +62,7 @@ void betterListInsert(List* l, char data, int index = 0);
 void betterListInsert(List* l, bool data, int index = 0);
 void betterListInsert(List* l, char* data, int index = 0);
 void betterListInsert(List* l, void* data, int index = 0);
+void betterListInsert(List* l, List* data, int index = 0);
 
 void listPrint(List* l, int from_index = 0, int no_of_elements = -1);
 int listFind(List* l, void* data, DataTag tag);
@@ -70,5 +74,6 @@ int betterListFind(List* l, char data);
 int betterListFind(List* l, bool data);
 int betterListFind(List* l, char* data);
 int betterListFind(List* l, void* data);
+int betterListFind(List* l, List* data);
 
 List* listAdder(List* L1, List* L2, int from_index_L1 = 0, int from_index_L2 = 0, int no_of_elements_L1 = -1, int no_of_elements_L2 = -1);

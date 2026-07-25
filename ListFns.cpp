@@ -50,6 +50,7 @@ DataType getType(DataTag tag) {
 	case BOOL:   return BOOLING; 
 	case STR:    return STRING; 
 	case PTR:    return POINTER;
+	case LST:    return LIST;
 	}
 	return INTEGER;
 }
@@ -110,7 +111,7 @@ void betterListAppend(List* l, char data)       { listAppend(l, (void*)(&data), 
 void betterListAppend(List* l, bool data)       { listAppend(l, (void*)(&data), BOOL); }
 void betterListAppend(List* l, char* data)      { listAppend(l, (void*)(&data), STR); }
 void betterListAppend(List* l, void* data)      { listAppend(l, (void*)(&data), PTR); }
-
+void betterListAppend(List* l, List* data)		{ listAppend(l, (void*)(&data), LST); }
 
 
 // Function to free the memory allocated for a list
@@ -203,6 +204,7 @@ void betterListInsert(List* l, char data, int index)      { listInsert(l, (void*
 void betterListInsert(List* l, bool data, int index)      { listInsert(l, (void*)(&data), BOOL, index); }
 void betterListInsert(List* l, char* data, int index)     { listInsert(l, (void*)(&data), STR, index); }
 void betterListInsert(List* l, void* data, int index)     { listInsert(l, (void*)(&data), PTR, index); }
+void betterListInsert(List* l, List* data, int index)     { listInsert(l, (void*)(&data), LST, index); }
 
 
 
@@ -243,6 +245,8 @@ void listPrint(List* l, int from_index, int no_of_elements) {
 			case PTR: 
 				printf("%p, ", *((void**)data)); 
 				break;
+			case LST:
+				listPrint(*((List**)data));
 			}
 		no_of_elements--;
 	}
@@ -285,6 +289,7 @@ int betterListFind(List* l, char data)      { return listFind(l, (void*)(&data),
 int betterListFind(List* l, bool data)      { return listFind(l, (void*)(&data), BOOL); }
 int betterListFind(List* l, char* data)     { return listFind(l, (void*)(&data), STR); }
 int betterListFind(List* l, void* data)     { return listFind(l, (void*)(&data), PTR); }
+int betterListFind(List* l, List* data)     { return listFind(l, (void*)(&data), LST); }
 
 
 
