@@ -23,7 +23,6 @@ List* listMaker() {
 	newList->dataSize = 10;
 	newList->typeSize = 10;
 	newList->tagSize = 10;
-	newList->isMarked = false;
 	return newList;
 }
 

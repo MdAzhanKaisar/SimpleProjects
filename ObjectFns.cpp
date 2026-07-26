@@ -4,7 +4,9 @@
 #include <string.h>
 #include <stddef.h>
 #pragma warning(push)
-#pragma warning(disable : 4996) // Disables the C4996 'unsafe' warning
+#pragma warning(disable : 4996)
+#pragma warning(disable : 4311)
+#pragma warning(disable : 4302) // Disables the C4996 'unsafe' warning
 
 
 
@@ -84,6 +86,28 @@ Object* newString(VirtualMachine* vm, str* data) {
 
 
 
+//pointer object
+Object* newPointer(VirtualMachine* vm, void* data) {
+	Object* obj = objectMaker(vm);
+	if (obj == NULL) { return NULL; }
+	obj->data.pointerData = data;
+	obj->tag = PTR;
+	return obj;
+}
+
+
+
+//list object
+Object* newList(VirtualMachine* vm, List* data) {
+	Object* obj = objectMaker(vm);
+	if (obj == NULL) { return NULL; }
+	obj->data.listData = data;
+	obj->tag = LST;
+	return obj;
+}
+
+
+
 //Find length of object
 int length(Object* obj) {
 	if (obj == NULL) { return -1; }
@@ -115,34 +139,34 @@ Object* objectAdder(VirtualMachine* vm, Object* A, Object* B) {
 	case INT:
 		if (BK == INT) { return newInt(vm, AD.intData + BD.intData); }
 		else if (BK == FLOAT) { return newFloat(vm, (float)((float)AD.intData + BD.floatData)); }
+		else if (BK == DOUBLE) { return newDouble(vm,((double)AD.intData + BD.doubleData)); }
 		else { return NULL; }
 	case FLOAT:
 		if (BK == INT) { return newFloat(vm, (float)(AD.floatData + (float)BD.intData)); }
 		else if (BK == FLOAT) { return newFloat(vm, (float)(AD.floatData + BD.floatData)); }
+		else if (BK == DOUBLE) { return newDouble(vm, (AD.floatData + BD.doubleData)); }
 		else { return NULL; }
 	case DOUBLE:
-		if (BK == INT) { return newFloat(vm, (float)(AD.floatData + (float)BD.intData)); }
-		else if (BK == FLOAT) { return newFloat(vm, (float)(AD.floatData + BD.floatData)); }
+		if (BK == INT) { return newDouble(vm, (AD.doubleData + (double)BD.intData)); }
+		else if (BK == FLOAT) { return newDouble(vm, (AD.doubleData + BD.floatData)); }
+		else if (BK == DOUBLE) { return newDouble(vm, (AD.doubleData + BD.doubleData)); }
 		else { return NULL; }
 	case CHAR:
-		if (BK == INT) { return newFloat(vm, (float)(AD.floatData + (float)BD.intData)); }
-		else if (BK == FLOAT) { return newFloat(vm, (float)(AD.floatData + BD.floatData)); }
+		if (BK == CHAR) { return newString(vm, strMaker((const char*)(strncat(&(AD.charData) , &(BD.charData),2)))); }
+		else if (BK == STR) { return newString(vm, strMaker(strncat(&(AD.charData), BD.stringData->data,BD.stringData->len + 1))); }
 		else { return NULL; }
 	case BOOL:
-		if (BK == INT) { return newFloat(vm, (float)(AD.floatData + (float)BD.intData)); }
-		else if (BK == FLOAT) { return newFloat(vm, (float)(AD.floatData + BD.floatData)); }
+		if (BK == BOOL) { return newBool(vm, (bool)(AD.boolData + BD.boolData)); }
 		else { return NULL; }
 	case STR:
-		if (BK == STR) {
-			Object* obj = newString(vm, strAdder(AD.stringData,BD.stringData));
-			return obj;
-		}
+		if (BK == STR) { return newString(vm, strAdder(AD.stringData,BD.stringData)); }
+		else if (BK == CHAR) { return newString(vm, strMaker(strncat( AD.stringData->data, &(BD.charData), AD.stringData->len + 1))); }
+		else { return NULL; }
+	case PTR:
+		if (BK == PTR) { return newPointer(vm, *((void**)AD.pointerData + int(BD.pointerData))); }
 		else { return NULL; }
 	case LST:
-		if (BK == LST) {
-			Object* obj = newList(vm, listAdder(AD.listData, BD.listData));
-			return obj;
-		}
+		if (BK == LST) { return newList(vm, listAdder(AD.listData, BD.listData)); }
 		else { return NULL; }
 	default: return NULL;
 	}
@@ -162,7 +186,7 @@ Object* objectAdder(VirtualMachine* vm, Object* A, Object* B) {
 
 
 
-*/
+
 
 
 

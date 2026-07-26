@@ -3,11 +3,6 @@
 #include "MarkNSweepGC.h"
 #include "StringFns.h"
 
-typedef struct Vector3 {
-	Object* x;
-	Object* y;
-	Object* z;
-}Vector3;
 
 typedef union ObjectData {
 	int intData;
@@ -17,7 +12,6 @@ typedef union ObjectData {
 	bool boolData;
 	str* stringData;
 	void* pointerData;
-	Vector3 vector3Data;
 	List* listData;
 }ObjectData;
 
@@ -35,7 +29,6 @@ Object* newChar(VirtualMachine* vm, char data);
 Object* newBool(VirtualMachine* vm, bool data);
 Object* newString(VirtualMachine* vm, str* data);
 Object* newPointer(VirtualMachine* vm, void* data);
-Object* newVector3(VirtualMachine* vm, Object* x, Object* y, Object* z);
 Object* newList(VirtualMachine* vm, List* data);
 
 int length(Object* obj);

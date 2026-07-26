@@ -1,6 +1,7 @@
 #pragma once
 #include <stdbool.h>
 //List of values of different data types
+typedef struct List List;
 
 typedef enum DataType {
 	INTEGER=sizeof(int),
@@ -10,7 +11,7 @@ typedef enum DataType {
 	BOOLING = sizeof(bool),
 	STRING=sizeof(char*),
 	POINTER = sizeof(void*),
-	LIST=sizeof(List*),
+	LIST= sizeof(List*),
 } DataType;
 
 typedef enum DataTag {
