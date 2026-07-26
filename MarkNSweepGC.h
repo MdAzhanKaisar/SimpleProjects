@@ -1,40 +1,39 @@
 #pragma once
-#include "ListFns.h"
+//#include "ListFns.h"
 #include "StackFns.h"
+#include "ObjectFns.h"
+//#include "StringFns.h"
+
+typedef struct Object Object;
+
 
 
 typedef struct VirtualMachine {
-  // stack frames: stack_t frame_t
-  Stack *frames;
-  // These are the rest of the objects: for example List
-  Stack *objects;
+  Stack* frames;
+  Stack* objects;
 } VirtualMachine;
 
 typedef struct StackFrame {
   Stack *references;
 } Frame;
-/*
-VirtualMachine* vm_new();
-void vm_free(VirtualMachine* vm);
-void vm_track_object(VirtualMachine* vm, Object obj);
 
-Frame* vm_new_frame(VirtualMachine* vm);
+VirtualMachine* vmMaker();
+void vmFree(VirtualMachine* vm);
+void frameFree(Frame* frame);
+
+void vmTrackObject(VirtualMachine* vm, Object* obj);
+Frame* vmNewFrame(VirtualMachine* vm);
+
+
+/*
+
+
+
+
 void vm_frame_push(VirtualMachine* vm, Frame* frame);
 Frame* vm_frame_pop(VirtualMachine* vm);
 
 void frame_free(Frame* frame);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 */

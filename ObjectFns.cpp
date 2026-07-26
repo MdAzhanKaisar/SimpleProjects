@@ -109,7 +109,7 @@ Object* newList(VirtualMachine* vm, List* data) {
 
 
 //Find length of object
-int length(Object* obj) {
+int objectLength(Object* obj) {
 	if (obj == NULL) { return -1; }
 	switch (obj->tag) {
 	case INT:
@@ -128,8 +128,8 @@ int length(Object* obj) {
 	}
 }
 
-//Work on double cases and more
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 //Add 2 objects and return a new object
 Object* objectAdder(VirtualMachine* vm, Object* A, Object* B) {
 	if (A == NULL || B == NULL) { return NULL; }
@@ -176,7 +176,13 @@ Object* objectAdder(VirtualMachine* vm, Object* A, Object* B) {
 
 
 
-
+//Free Object
+void objectFree(Object* obj) {
+	if (obj == NULL) { return; }
+	if (obj->tag == STR) { strFree(obj->data.stringData); }
+	else if (obj->tag == LST) { listFree(obj->data.listData); }
+	free(obj);
+}
 
 
 

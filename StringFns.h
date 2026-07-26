@@ -10,3 +10,4 @@ typedef struct str {
 //functions
 str* strMaker(const char* s, int l=-1);
 str* strAdder(str* s1, str* s2);
+void strFree(str* s);

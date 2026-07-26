@@ -38,3 +38,12 @@ str* strAdder(str* s1, str* s2) {
 	if (s == NULL) { return NULL; }
 	return s;
 }
+
+
+
+//free str
+void strFree(str* s) {
+	if (s == NULL) { return; }
+	free(s->data);
+	free(s);
+}

@@ -3,6 +3,9 @@
 #include "MarkNSweepGC.h"
 #include "StringFns.h"
 
+typedef struct VirtualMachine VirtualMachine;
+
+
 
 typedef union ObjectData {
 	int intData;
@@ -31,12 +34,10 @@ Object* newString(VirtualMachine* vm, str* data);
 Object* newPointer(VirtualMachine* vm, void* data);
 Object* newList(VirtualMachine* vm, List* data);
 
-int length(Object* obj);
-/*
-object* add(object* A, object* B);
+int objectLength(Object* obj);
+Object* objectAdder(Object* A, Object* B);
+void objectFree(Object* obj);
 
-
-*/
 
 /*
 typedef struct VirtualMachine {
@@ -66,7 +67,6 @@ void trace_mark_object(stack_t* gray_objects, object* ref);
 void sweep(vm_t* vm);
 
 void vm_collect_garbage(vm_t* vm);
-
 
 
 
