@@ -32,7 +32,6 @@ typedef struct List {
 	int dataSize;
 	int typeSize;
 	int tagSize;
-	bool isMarked;
 } List;
 
 //FUNCTIONS

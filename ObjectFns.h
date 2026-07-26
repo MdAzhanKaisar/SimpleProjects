@@ -1,5 +1,7 @@
 #pragma once
 #include "ListFns.h"
+#include "MarkNSweepGC.h"
+#include "StringFns.h"
 
 typedef struct Vector3 {
 	Object* x;
@@ -13,7 +15,7 @@ typedef union ObjectData {
 	double doubleData; 
 	char charData;
 	bool boolData;
-	char* stringData;
+	str* stringData;
 	void* pointerData;
 	Vector3 vector3Data;
 	List* listData;
@@ -25,21 +27,19 @@ typedef struct Object {
 	bool is_marked;
 }Object;
 
-Object* objectMaker();
+Object* objectMaker(VirtualMachine* vm);
+Object* newInt(VirtualMachine* vm, int data);
+Object* newFloat(VirtualMachine* vm, float data);
+Object* newDouble(VirtualMachine* vm, double data);
+Object* newChar(VirtualMachine* vm, char data);
+Object* newBool(VirtualMachine* vm, bool data);
+Object* newString(VirtualMachine* vm, str* data);
+Object* newPointer(VirtualMachine* vm, void* data);
+Object* newVector3(VirtualMachine* vm, Object* x, Object* y, Object* z);
+Object* newList(VirtualMachine* vm, List* data);
 
-
+int length(Object* obj);
 /*
-object* new_object(vm_t* vm);
-object* new_int(int data);
-object* new_float(float data);
-object* new_string(char* data);
-object* new_vector3(object* x, object* y, object* z);
-object* new_array(size_t size);
-
-
-bool array_set(object* obj, size_t index, object* value);
-object* array_get(object* obj, size_t index);
-int length(object* obj);
 object* add(object* A, object* B);
 
 

@@ -2,7 +2,7 @@
 #include "ListFns.h"
 #include "StackFns.h"
 
-/*
+
 typedef struct VirtualMachine {
   // stack frames: stack_t frame_t
   Stack *frames;
@@ -13,7 +13,7 @@ typedef struct VirtualMachine {
 typedef struct StackFrame {
   Stack *references;
 } Frame;
-
+/*
 VirtualMachine* vm_new();
 void vm_free(VirtualMachine* vm);
 void vm_track_object(VirtualMachine* vm, Object obj);
