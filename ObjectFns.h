@@ -36,38 +36,5 @@ Object* newList(VirtualMachine* vm, List* data);
 
 int objectLength(Object* obj);
 Object* objectAdder(Object* A, Object* B);
+void objectPrint(Object* obj);
 void objectFree(Object* obj);
-
-
-/*
-typedef struct VirtualMachine {
-	stack_t* frames;
-	stack_t* objects;
-} vm_t;
-
-typedef struct StackFrame {
-	stack_t* references;
-} frame_t;
-
-vm_t* vm_new();
-void vm_free(vm_t* vm);
-
-void vm_frame_push(vm_t* vm, frame_t* frame);
-frame_t* vm_new_frame(vm_t* vm);
-
-void frame_free(frame_t* frame);
-void vm_track_object(vm_t* vm, object* obj);
-void frame_reference_object(frame_t* frame, object* obj);
-void object_free(object* obj);
-
-void mark(vm_t* vm);
-void trace(vm_t* vm);
-void trace_blacken_object(stack_t* gray_objects, object* ref);
-void trace_mark_object(stack_t* gray_objects, object* ref);
-void sweep(vm_t* vm);
-
-void vm_collect_garbage(vm_t* vm);
-
-
-
-*/

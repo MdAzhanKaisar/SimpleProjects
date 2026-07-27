@@ -50,6 +50,7 @@ DataType getType(DataTag tag) {
 	case STR:    return STRING; 
 	case PTR:    return POINTER;
 	case LST:    return LIST;
+	case OBJ:	 return OBJECT;
 	}
 	return INTEGER;
 }
@@ -111,6 +112,7 @@ void betterListAppend(List* l, bool data)       { listAppend(l, (void*)(&data), 
 void betterListAppend(List* l, char* data)      { listAppend(l, (void*)(&data), STR); }
 void betterListAppend(List* l, void* data)      { listAppend(l, (void*)(&data), PTR); }
 void betterListAppend(List* l, List* data)		{ listAppend(l, (void*)(&data), LST); }
+void betterListAppend(List* l, Object* data)		{ listAppend(l, (void*)(&data), OBJ); }
 
 
 // Function to free the memory allocated for a list
@@ -150,7 +152,7 @@ void listRemove(List* l, int index) {
 }
 
 
-//////////////
+
 // Function to insert data in the list at a specefic index
 void listInsert(List* l , void* data, DataTag tag, int index) {
 	if (l == NULL || data == NULL || index < 0 || index >= l->len) { return; }
@@ -204,6 +206,7 @@ void betterListInsert(List* l, bool data, int index)      { listInsert(l, (void*
 void betterListInsert(List* l, char* data, int index)     { listInsert(l, (void*)(&data), STR, index); }
 void betterListInsert(List* l, void* data, int index)     { listInsert(l, (void*)(&data), PTR, index); }
 void betterListInsert(List* l, List* data, int index)     { listInsert(l, (void*)(&data), LST, index); }
+void betterListInsert(List* l, Object* data, int index)     { listInsert(l, (void*)(&data), OBJ, index); }
 
 
 
@@ -245,7 +248,9 @@ void listPrint(List* l, int from_index, int no_of_elements) {
 				printf("%p, ", *((void**)data)); 
 				break;
 			case LST:
-				listPrint(*((List**)data));
+				listPrint(*((List**)data)); printf(", ");
+			case OBJ:
+				objectPrint(*((Object**)data)); printf(", ");
 			}
 		no_of_elements--;
 	}
@@ -256,21 +261,25 @@ void listPrint(List* l, int from_index, int no_of_elements) {
 
 
 // Function to find a value in the list and return its index.
-int listFind(List* l, void* data, DataTag tag) {
-	if (l == NULL || data == NULL) { return -2; }
+int listFind(List* l, void* data, DataTag tag, int start_index) {
+	if (l == NULL || start_index >= l->len || start_index < 0) { return -1; }
 	//Temporary variables to store data*, type and check if data matches
 	void* temp;
 	DataType type;
 	int check = 0;
 	//Checking loop
-	for (int i = 0;i < l->len;i++) {
+	for (int i = start_index;i < l->len;i++) {
 		if (l->tag[i] == tag) {
 			temp = listGet(l, i);
+
+			if (data == NULL) { return i; }
+			
 			type = getType(tag);
 			// Loop checks each byte
 			for (int j = 0; j < type;j++) {
 				if (((char*)temp)[j] == ((char*)data)[j]) { check++; }
 			}
+			
 			if (check == type) { return i; }
 			else { check = 0; }
 		}
@@ -289,6 +298,7 @@ int betterListFind(List* l, bool data)      { return listFind(l, (void*)(&data),
 int betterListFind(List* l, char* data)     { return listFind(l, (void*)(&data), STR); }
 int betterListFind(List* l, void* data)     { return listFind(l, (void*)(&data), PTR); }
 int betterListFind(List* l, List* data)     { return listFind(l, (void*)(&data), LST); }
+int betterListFind(List* l, Object* data)     { return listFind(l, (void*)(&data), OBJ); }
 
 
 

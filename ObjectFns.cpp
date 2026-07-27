@@ -15,6 +15,7 @@ Object* objectMaker(VirtualMachine* vm) {
 	Object* obj = (Object*)calloc(1, sizeof(Object));
 	if (obj == NULL) { return NULL; }
 	obj->is_marked = false;
+	vmTrackObject(vm, obj);
 	return obj;
 }
 
@@ -171,6 +172,23 @@ Object* objectAdder(VirtualMachine* vm, Object* A, Object* B) {
 	default: return NULL;
 	}
 
+
+}
+
+
+
+//Print object data
+void objectPrint(Object* obj) {
+	switch (obj->tag) {
+	case INT: printf("%i", obj->data.intData);
+	case FLOAT: printf("%f", obj->data.floatData);
+	case DOUBLE: printf("%lf", obj->data.doubleData);
+	case CHAR: printf("%c", obj->data.charData);
+	case BOOL: printf("%s", (obj->data.boolData) ? "true" : "false");
+	case STR: printf("%s", obj->data.stringData->data);
+	case PTR: printf("%p", obj->data.pointerData);
+	case LST: listPrint(obj->data.listData);
+	}
 
 }
 

@@ -19,10 +19,29 @@ typedef struct StackFrame {
 
 VirtualMachine* vmMaker();
 void vmFree(VirtualMachine* vm);
+
+Frame* vmNewFrame(VirtualMachine* vm);
 void frameFree(Frame* frame);
 
 void vmTrackObject(VirtualMachine* vm, Object* obj);
-Frame* vmNewFrame(VirtualMachine* vm);
+void frameReferenceObject(Frame* frame, Object* obj);
+
+void vmFrameMark(VirtualMachine* vm);
+
+void traceMarkObject(Stack* gray_objects, Object* ref);
+void traceBlackenObject(Stack* gray_objects, Object* ref);
+void trace(VirtualMachine* vm);
+
+
+void sweep(VirtualMachine* vm);
+
+void vmCollectGarbage(VirtualMachine* vm);
+
+
+
+
+
+
 
 
 /*
@@ -30,10 +49,10 @@ Frame* vmNewFrame(VirtualMachine* vm);
 
 
 
-void vm_frame_push(VirtualMachine* vm, Frame* frame);
-Frame* vm_frame_pop(VirtualMachine* vm);
 
-void frame_free(Frame* frame);
+
+
+
 
 
 */
